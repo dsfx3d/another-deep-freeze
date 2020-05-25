@@ -87,7 +87,7 @@ const sameTxn = deepFreeze(txn, /* in-place deep freeze*/ true)
 sameTxn === txn // true
 ```
 
-This will make `txn` immutable at all depths
+This will make `txn` immutable at all depths.
 
 ## Contributing
 
