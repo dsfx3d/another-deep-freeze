@@ -1,6 +1,6 @@
 {
   "name": "another-deep-freeze",
-  "version": "0.0.0-development",
+  "version": "0.1.0",
   "description": "Util to make your objects and arrays purely immutable",
   "main": "build/index.js",
   "types": "build/index.d.ts",
