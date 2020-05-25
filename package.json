@@ -25,7 +25,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/dsfx3d/npm-package-typescript-development-scaffold.git"
+    "url": "https://github.com/dsfx3d/another-deep-freeze.git"
   },
   "keywords": [
     "typescript",
@@ -40,9 +40,9 @@
   "author": "dsfx3d <dsfx3d@gmail.com> (https://dsfx3d.me/)",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/dsfx3d/npm-package-typescript-development-scaffold/issues"
+    "url": "https://github.com/dsfx3d/another-deep-freeze/issues"
   },
-  "homepage": "https://github.com/dsfx3d/npm-package-typescript-development-scaffold#readme",
+  "homepage": "https://github.com/dsfx3d/another-deep-freeze#readme",
   "devDependencies": {
     "@babel/cli": "7.8.4",
     "@babel/core": "7.9.6",
