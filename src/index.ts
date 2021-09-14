@@ -1,3 +1,15 @@
+type DeepReadonly<T> =
+	T extends (infer R)[] ? DeepReadonlyArray<R> :
+	T extends object ? DeepReadonlyObject<T> :
+	T;
+
+interface DeepReadonlyArray<T> extends ReadonlyArray<DeepReadonly<T>> { }
+
+type DeepReadonlyObject<T> = {
+	readonly [P in keyof T]: DeepReadonly<T[P]>;
+};
+
+
 /**
  * Deep freezes the passed object to make it non-extensible and immutable
  * In case of an object, recursively freezes all of it's properties.
@@ -7,22 +19,23 @@
  * @param {boolean} inplace Freeze inplace or freeze a clone
  * @returns {Object|Array} frozen object
  */
-const deepFreeze = (obj: any, inplace: boolean = false): any => {
+export default function deepFreeze<T extends object | any[]>(source: T, inplace: boolean = false): DeepReadonly<T> {
+  let frozen = source as any;
+
   if (!inplace) {
-    obj = Array.isArray(obj) ? [...obj] : { ...obj }
+    frozen = Array.isArray(frozen) ? [...frozen] : { ...frozen };
   }
 
-  let key: string
-  for (key of Object.keys(obj)) {
-    if (typeof obj[key] === 'object') {
-      obj[key] = deepFreeze(obj[key], inplace)
+  for (const key of Object.keys(frozen)) {
+    if (typeof frozen[key] === 'object') {
+      frozen[key] = deepFreeze(frozen[key], inplace)
     }
-    obj[key].__proto__ = Object.preventExtensions(obj[key].__proto__)
+
+    frozen[key].__proto__ = Object.preventExtensions(frozen[key].__proto__)
   }
 
-  obj.__proto__ = Object.preventExtensions(obj.__proto__)
-  /* istanbul ignore next */
-  return Object.isFrozen(obj) ? obj : Object.freeze(obj)
-}
+  frozen.__proto__ = Object.preventExtensions(frozen.__proto__)
 
-export default deepFreeze
+  /* istanbul ignore next */
+  return Object.isFrozen(frozen) ? frozen : Object.freeze(frozen)
+}
